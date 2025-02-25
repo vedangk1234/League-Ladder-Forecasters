@@ -1,0 +1,448 @@
+/* Reset margins and set basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+/* Container holding all content */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Background Color Sections */
+.left-bg {
+    position: absolute;
+    left: 0;
+    width: 28%;
+    height: 100%;
+    background-color: #F2055C;
+    z-index: -1;
+}
+
+.middle-bg {
+    position: absolute;
+    left: 28%;
+    width: 40%;
+    height: 100%;
+    background-color: #340040;
+    z-index: -1;
+}
+
+.right-bg {
+    position: absolute;
+    right: 0;
+    width: 32%;
+    height: 100%;
+    background-color: #05F26C;
+    z-index: -1;
+}
+
+/* Dropdown Menu */
+.dropdown {
+    width: 20%;
+    padding: 10px;
+    color: white;
+}
+
+.dropdown label, .dropdown select {
+    display: block;
+    margin-bottom: 10px;
+    color: black;
+}
+
+/* Tables */
+.table-container {
+    width: 30%;
+    height: 100%;
+    overflow: hidden;
+    padding: 10px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center;     /* Center horizontally */
+}
+
+.table-container.center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.table-container h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: white;
+}
+
+table {
+    width: 100%;
+    height: calc(100% - 40px); /* Adjusting for h2 and padding */
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th, td {
+    border: 1px solid white;
+    padding: 5px;
+    text-align: left;
+    font-size: 0.6em; /* Smaller font size to fit everything */
+    color: white;
+}
+
+th {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Adjust column widths */
+th:nth-child(1), td:nth-child(1) { width: 10%; }
+th:nth-child(2), td:nth-child(2) { width: 15%; }
+th:nth-child(3), td:nth-child(3) { width: 10%; }
+th:nth-child(4), td:nth-child(4) { width: 10%; }
+th:nth-child(5), td:nth-child(5) { width: 10%; }
+th:nth-child(6), td:nth-child(6) { width: 10%; }
+th:nth-child(7), td:nth-child(7) { width: 10%; }
+th:nth-child(8), td:nth-child(8) { width: 15%; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prediction Page</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .dropdown-container {
+      display: flex;
+      align-items: center;
+    }
+    .team-dropdown {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+      <!-- Background Color Sections -->
+      <div class="left-bg"></div>
+      <div class="middle-bg"></div>
+      <div class="right-bg"></div>
+
+      <!-- Left Side: Dropdown Menu -->
+      <div class="dropdown">
+          <label for="predictions">View other's predictions:</label>
+          <select id="predictions" name="predictions">
+              <option value="prediction1">Prediction 1</option>
+              <option value="prediction2">Prediction 2</option>
+              <option value="prediction3">Prediction 3</option>
+              <!-- Add more options as needed -->
+          </select>
+      </div>
+
+      <!-- Center: Your Prediction Table -->
+      <div class="table-container center">
+          <h2>YOUR PREDICTION</h2>
+          <table>
+              <tr>
+                  <th>Position</th>
+                  <th>Club</th>
+                  <th>Played</th>
+                  <th>Won</th>
+                  <th>Drawn</th>
+                  <th>Lost</th>
+                  <th>GD</th>
+                  <th>Points</th>
+              </tr>
+              <!-- Rows for 20 Teams with Dropdown -->
+              <script>
+                const teams = [
+                  "Arsenal", "Aston Villa", "Bournemouth", "Brentford", "Brighton",
+                  "Chelsea", "Crystal Palace", "Everton", "Fulham", "Ipswich Town",
+                  "Leicester", "Liverpool", "Man City", "Man Utd", "Newcastle Utd",
+                  "Nottingham", "Southampton", "Tottenham", "WestHam Utd", "Wolves"
+                ];
+                for (let i = 1; i <= 20; i++) {
+                  document.write(`
+                    <tr>
+                      <td>${i}</td>
+                      <td id="club${i}">Team ${i}</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td class="dropdown-container">
+                        <select class="team-dropdown" onchange="updateClub(${i}, this)">
+                          <option value="">Select Team</option>
+                          ${teams.map(team => `<option value="${team}">${team}</option>`).join('')}
+                        </select>
+                      </td>
+                    </tr>
+                  `);
+                }
+              </script>
+          </table>
+      </div>
+
+      <!-- Right Side: Live PL Table -->
+      <div class="table-container">
+          <h2>LIVE PL TABLE</h2>
+          <table>
+              <tr>
+                  <th>Position</th>
+                  <th>Club</th>
+                  <th>Played</th>
+                  <th>Won</th>
+                  <th>Drawn</th>
+                  <th>Lost</th>
+                  <th>GD</th>
+                  <th>Points</th>
+              </tr>
+              <!-- Rows for 20 Teams -->
+              <tr><td>1</td><td>Arsenal</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>2</td><td>Aston Villa</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>3</td><td>Bournemouth</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>4</td><td>Brentford</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>5</td><td>Brighton</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>6</td><td>Chelsea</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>7</td><td>Crystal Palace</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>8</td><td>Everton</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>9</td><td>Fulham</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>10</td><td>Ipswich Town</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>11</td><td>Leicester</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>12</td><td>Liverpool</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>13</td><td>Man City</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>14</td><td>Man Utd</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>15</td><td>Newcastle Utd</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>16</td><td>Nottingham</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>17</td><td>Southampton</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>18</td><td>Tottenham</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>19</td><td>WestHam Utd</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>20</td><td>Wolves</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          </table>
+      </div>
+  </div>
+
+  <!-- Big Submit Button -->
+  <div class="submit-button-container">
+    <button id="submitButton">Submit</button>
+  </div>
+
+  <script>
+    // Function to update the Club name based on dropdown selection
+    function updateClub(position, selectElement) {
+      var clubCell = document.getElementById('club' + position);
+      clubCell.textContent = selectElement.value;
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ document.addEventListener('DOMContentLoaded', function() {
+    const teams = [
+        'Arsenal', 'Aston Villa', 'Bournemouth', 'Brentford', 'Brighton', 'Chelsea',
+        'Crystal Palace', 'Everton', 'Fulham', 'Ipswich Town', 'Leicester', 'Liverpool',
+        'Man City', 'Man Utd', 'Newcastle Utd', 'Nottingham', 'Southampton', 'Tottenham',
+        'WestHam Utd', 'Wolves'
+    ];
+
+    const dropdowns = document.querySelectorAll('.team-dropdown');
+    const removeButtons = document.querySelectorAll('.remove-team-btn');
+
+    // Initialize dropdown options
+    function populateDropdowns() {
+        dropdowns.forEach(dropdown => {
+            dropdown.innerHTML = ''; // Clear existing options
+            const selectedTeams = Array.from(dropdowns).map(d => d.value).filter(v => v);
+            const availableTeams = teams.filter(team => !selectedTeams.includes(team));
+
+            availableTeams.forEach(team => {
+                const option = document.createElement('option');
+                option.value = team;
+                option.textContent = team;
+                dropdown.appendChild(option);
+            });
+
+            // Set the default selected value if any
+            const position = dropdown.dataset.position;
+            const selectedTeam = document.querySelector(`.team-dropdown[data-position="${position}"]`).value;
+            if (selectedTeam) {
+                dropdown.querySelector(`option[value="${selectedTeam}"]`).selected = true;
+            }
+        });
+    }
+
+    // Handle team selection
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('change', function() {
+            populateDropdowns(); // Refresh options after selection
+        });
+    });
+
+    // Handle remove button click
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const position = button.dataset.position;
+            const dropdown = document.querySelector(`.team-dropdown[data-position="${position}"]`);
+            const selectedTeam = dropdown.value;
+
+            // Add the removed team back to all dropdowns
+            if (selectedTeam) {
+                teams.push(selectedTeam); // Add back the removed team
+                populateDropdowns(); // Refresh options
+            }
+            
+            // Clear the selected team
+            dropdown.value = '';
+        });
+    });
+
+    // Initial population of dropdowns
+    populateDropdowns();
+});
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="loginForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <button type="submit">Login</button>
+  </form>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      localStorage.setItem('username', username);
+      window.location.href = 'index.html'; // Redirect to the main page
+    });
+  </script>
+</body>
+</html>

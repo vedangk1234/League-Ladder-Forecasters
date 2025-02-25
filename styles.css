@@ -1,0 +1,142 @@
+/* Reset margins and set basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+/* Container holding all content */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Background Color Sections */
+.left-bg {
+    position: absolute;
+    left: 0;
+    width: 28%;
+    height: 100%;
+    background-color: #F2055C;
+    z-index: -1;
+}
+
+.middle-bg {
+    position: absolute;
+    left: 28%;
+    width: 40%;
+    height: 100%;
+    background-color: #340040;
+    z-index: -1;
+}
+
+.right-bg {
+    position: absolute;
+    right: 0;
+    width: 32%;
+    height: 100%;
+    background-color: #05F26C;
+    z-index: -1;
+}
+
+/* Dropdown Menu */
+.dropdown {
+    width: 20%;
+    padding: 10px;
+    color: white;
+}
+
+.dropdown label, .dropdown select {
+    display: block;
+    margin-bottom: 10px;
+    color: black;
+}
+
+/* Tables */
+.table-container {
+    width: 30%;
+    height: 100%;
+    overflow: hidden;
+    padding: 10px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center;     /* Center horizontally */
+}
+
+.table-container.center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.table-container h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: white;
+}
+
+table {
+    width: 100%;
+    height: calc(100% - 40px); /* Adjusting for h2 and padding */
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th, td {
+    border: 1px solid white;
+    padding: 5px;
+    text-align: left;
+    font-size: 0.6em; /* Smaller font size to fit everything */
+    color: white;
+}
+
+th {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Adjust column widths */
+th:nth-child(1), td:nth-child(1) { width: 10%; }
+th:nth-child(2), td:nth-child(2) { width: 15%; }
+th:nth-child(3), td:nth-child(3) { width: 10%; }
+th:nth-child(4), td:nth-child(4) { width: 10%; }
+th:nth-child(5), td:nth-child(5) { width: 10%; }
+th:nth-child(6), td:nth-child(6) { width: 10%; }
+th:nth-child(7), td:nth-child(7) { width: 10%; }
+th:nth-child(8), td:nth-child(8) { width: 15%; }
+
+/* Submit Button */
+.submit-button-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+#submitButton {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submitButton:hover {
+    background-color: #0056b3;
+}
